@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "widget.h"
 #include "ui_widget.h"
 #include "repeater.cpp"
@@ -77,6 +78,7 @@ void Widget::on_revPin_clicked(bool){
         readPin *= 10;
         readPin += radioButton->text().at(6).cell() - '0';
     }
+    printf("%d\n", readPin);
 }
 void Widget::checkEnable(){
     ui->GPIO0->setEnabled(true);
@@ -211,7 +213,12 @@ void Widget::on_pushButton_clicked(){
     checkDisable();
     radioDisable();
     quit = 1;
-    //repeater(readPin, writePinList);
+    repeater(readPin, writePinList);
+    printf("readpin: %d\n", readPin);
+    for(list<int>::iterator i = writePinList.begin(); i != writePinList.end(); i++){
+        printf("%d, ", *i);
+    }
+    printf("\n");
 }
 
 void Widget::on_pushButton_2_clicked(){

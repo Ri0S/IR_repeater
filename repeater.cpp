@@ -54,17 +54,16 @@ int repeater(int readpin, list<int> writepinList){
         first = 1;
     }
 
-    pinMode(read_pin, INPUT);
     for(list<int>::iterator i = writepinList.begin();i != writepinList.end() ;i++)
         pinMode(*i, OUTPUT);
+    pinMode(read_pin, INPUT);
     while(quit){
         result = scan();
 
         if(result || !readable){
             printf("\n\n!!! could not scanning. quit.\n\n");
-        } else {
-            printf("\nScanning has been done.\n\n");
         }
+        
         send(writepinList);
     }
 
@@ -85,6 +84,7 @@ int scan(){
         turnon[i] = on;
         turnoff[i] = off;
         if(off > max_wait){ break; }
+        i++;        
     }
     length = i;
     i = 0;
